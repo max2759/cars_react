@@ -14,6 +14,48 @@ class App extends Component {
     titre:'Mon catalogue de voitures'
   }
 
+
+  changeTitle = (e) =>{
+    console.log(e.target);
+
+    /**
+     * Passer par méthode setState() pour mettre à jour state car seule elle a le droit de modifier
+     */
+    this.setState({
+      titre: 'Mon nouveau titre'
+    })
+  }
+
+  /**
+   * Même méthode qu'au dessus mais dynamique
+   * @param {titre} titre 
+   */
+  changeViaParam= (titre)=>{
+    this.setState({
+      /**
+       * soit titre : titre ou seulement titre
+       */
+      titre
+    })
+  }
+
+  /**
+   * si utilisation bind(), React conseille de gérer dans le constructor()
+   */
+  changeViaBind = (param) => {
+      this.setState({
+        titre: param
+      })
+  }
+
+  changeViaInput = (e) => {
+
+    this.setState({
+     titre: e.target.value
+    })
+    
+  }
+
   render(){
     return (
       /**
@@ -24,6 +66,16 @@ class App extends Component {
         ** On va passer le state dans Mycars.js
         */}
         <Mycars title={this.state.titre}/>
+
+        {/* <button onClick={this.changeTitle}>Changez le nom en dur</button>
+        {/* 
+        **si on met changeVIaParam(), elle va se lancer au chargement de la page d'ou utilisation fonction anonyme
+        */}
+        {/* <button onClick={() => this.changeViaParam('Titre via un param')}>Changez le nom via param</button>
+
+        <button onClick={this.changeViaBind.bind(this, 'Titre via Bind')}>Changez le nom via Bind</button>
+      
+      <input type="text" onChange={this.changeViaInput} value={this.state.titre}/> */}
       </div>
     );
   }
